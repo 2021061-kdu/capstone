@@ -55,14 +55,15 @@ public class RecipeInfoActivity extends AppCompatActivity {
     // 레시피 목록을 가져오는 메서드
     private void loadRecipes() {
         ApiRequest apiRequest = new ApiRequest(this);
+        allRecipes = new ArrayList<>();
         apiRequest.fetchRecipesByIngredients(new ArrayList<>(), new ApiRequest.RecipeFetchListener() {
             @Override
-            public void onFetchSuccess(List<Recipe> recipes) {
-                allRecipes = recipes;
+            public void onFetchSuccess(List<Recipe> dbRecipes) {
+                allRecipes.addAll(dbRecipes);
                 filteredRecipes = new ArrayList<>(allRecipes);
                 recipeAdapter.updateRecipeList(filteredRecipes); // 레시피 어댑터에 데이터 업데이트
                 // 디버깅: 데이터가 올바르게 들어왔는지 확인
-                for (Recipe recipe : recipes) {
+                for (Recipe recipe : allRecipes) {
                     Log.d("RecipeInfoActivity", "Recipe: " + recipe.getName());
                 }
             }
@@ -70,6 +71,8 @@ public class RecipeInfoActivity extends AppCompatActivity {
             @Override
             public void onFetchError(VolleyError error) {
                 Toast.makeText(RecipeInfoActivity.this, "레시피를 불러오는 데 실패했습니다.", Toast.LENGTH_SHORT).show();
+                filteredRecipes = new ArrayList<>(allRecipes);
+                recipeAdapter.updateRecipeList(filteredRecipes);
             }
         });
     }
