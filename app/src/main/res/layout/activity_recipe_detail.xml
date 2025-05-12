@@ -94,16 +94,19 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <!-- 조리 방법 토글 버튼 -->
+
+        <!-- 조리 방법 컨테이너 -->
+
         <Button
             android:id="@+id/btn_toggle_images"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="68dp"
+            android:layout_marginTop="4dp"
             android:text="이미지로 보기"
-            android:layout_marginStart="8dp"
             app:layout_constraintStart_toEndOf="@id/cooking_instructions_title"
             app:layout_constraintTop_toTopOf="@id/cooking_instructions_title" />
 
-        <!-- 조리 방법 컨테이너 -->
         <LinearLayout
             android:id="@+id/cooking_instruction_container"
             android:layout_width="0dp"
