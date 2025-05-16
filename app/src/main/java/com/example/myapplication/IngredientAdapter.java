@@ -75,12 +75,12 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
         if (diffInDays < 0) {
             holder.dDayTextView.setBackgroundResource(R.drawable.d_day_background_gray); // 지난 경우 - 회색
         } else if (diffInDays == 0) {
-            holder.dDayTextView.setBackgroundResource(R.drawable.d_day_background_red); // 당일 - 빨강
+          holder.dDayTextView.setBackgroundResource(R.drawable.d_day_background_red); // 당일 - 빨강
         } else if (diffInDays <= 3) {
-            holder.dDayTextView.setBackgroundResource(R.drawable.d_day_background_orange); // 3일 이하 - 주황
-        } else if (diffInDays <= 7) {
-            holder.dDayTextView.setBackgroundResource(R.drawable.d_day_background_green); // 7일 이상 - 초록
-        }
+          holder.dDayTextView.setBackgroundResource(R.drawable.d_day_background_orange); // 3일 이하 - 주황
+       } else if (diffInDays <= 7) {
+           holder.dDayTextView.setBackgroundResource(R.drawable.d_day_background_green); // 7일 이상 - 초록
+       }
 
         // 삭제 모드일 때만 삭제 버튼을 보여줌
         holder.deleteButton.setVisibility(isDeleteMode ? View.VISIBLE : View.GONE);
