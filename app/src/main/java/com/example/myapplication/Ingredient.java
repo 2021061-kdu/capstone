@@ -15,6 +15,7 @@ public class Ingredient implements Serializable {
     private String storageLocation;
     private int imageResId;
 
+
     public Ingredient(String name, int quantity, String unit, String intakeDate, Calendar expirationDate, String storageLocation, int imageResId) {
         this.name = name;
         this.quantity = quantity;
