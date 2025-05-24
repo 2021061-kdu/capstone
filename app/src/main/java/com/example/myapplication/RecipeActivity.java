@@ -1,10 +1,7 @@
 package com.example.myapplication;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,7 +12,6 @@ import java.util.List;
 
 public class RecipeActivity extends AppCompatActivity {
 
-    private Button btn_fredge, btnSetting, btnRecipe;
     private RecyclerView recyclerViewRecipes;
     private RecipeAdapter recipeAdapter;
     private List<Recipe> recipeList;
@@ -24,34 +20,8 @@ public class RecipeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
-
-        btnSetting = findViewById(R.id.btn_setting);
-        btnRecipe = findViewById(R.id.btn_recipe);
-        btn_fredge = findViewById(R.id.btn_fredge);
-
-        btn_fredge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RecipeActivity.this, HomeActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        btnSetting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RecipeActivity.this, SettingActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        btnRecipe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RecipeActivity.this, RecipeActivity.class);
-                startActivity(intent);
-            }
-        });
+        ImageButton backButton = findViewById(R.id.btn_back);
+        backButton.setOnClickListener(v -> finish());
 
         // RecyclerView 초기화
         recyclerViewRecipes = findViewById(R.id.recycler_view_recipes);
@@ -73,6 +43,10 @@ public class RecipeActivity extends AppCompatActivity {
                     recipeList.clear();
                     recipeList.addAll(filtered);
                     recipeAdapter.notifyDataSetChanged();
+
+                    if (filtered.isEmpty()) {
+                        Toast.makeText(RecipeActivity.this, "보유하신 재료로 만들 수 있는 레시피가 없습니다!", Toast.LENGTH_LONG).show();
+                    }
                 }
 
                 @Override
@@ -83,38 +57,9 @@ public class RecipeActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "재료 정보가 없습니다.", Toast.LENGTH_SHORT).show();
         }
-
-        loadRecipes(ingredients);
     }
 
-
-    private void loadRecipes(List<String> ingredients) {
-        ApiRequest apiRequest = new ApiRequest(this);
-        apiRequest.fetchRecipesByIngredients(ingredients, new ApiRequest.RecipeFetchListener() {
-            @Override
-            public void onFetchSuccess(List<Recipe> recipes) {
-                // 재료 목록을 기준으로 필터링
-                List<Recipe> filteredRecipes = filterRecipesByIngredients(recipes, ingredients);
-
-                if (filteredRecipes.isEmpty()) {
-                    // 겹치는 재료가 없으면 메시지 표시
-                    Toast.makeText(RecipeActivity.this, "겹치는 재료가 없습니다. 재료를 추가하세요!", Toast.LENGTH_LONG).show();
-                } else {
-                    // 겹치는 재료가 있는 레시피만 표시
-                    recipeList.clear();
-                    recipeList.addAll(filteredRecipes);
-                    recipeAdapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onFetchError(VolleyError error) {
-                Toast.makeText(RecipeActivity.this, "레시피를 불러오는 데 실패했습니다.", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    // 재료를 비교하여 겹치는 레시피만 반환하는 메서드
+        // 재료를 비교하여 겹치는 레시피만 반환하는 메서드
     private List<Recipe> filterRecipesByIngredients(List<Recipe> recipes, List<String> userIngredients) {
         List<Recipe> filteredRecipes = new ArrayList<>();
 

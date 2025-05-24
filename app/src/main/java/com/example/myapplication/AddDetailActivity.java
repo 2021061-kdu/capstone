@@ -31,6 +31,7 @@ public class AddDetailActivity extends AppCompatActivity {
     private int quantity = 0;
     private RadioGroup rgStorage; // 저장 장소 선택 RadioGroup
     private Spinner spinnerNotificationDays;
+    private Ingredient ingredient;
 
 
     @Override
@@ -79,15 +80,18 @@ public class AddDetailActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // Intent에서 데이터 받기
-        Intent intent = getIntent();
-        if (intent != null) {
-            String itemName = intent.getStringExtra("itemName"); // 재료 이름 받기
-            int itemImage = intent.getIntExtra("itemImage", 0); // 재료 이미지 리소스 ID 받기
+        // Intent에서 객체 or 문자열 방식으로 받기
+        ingredient = (Ingredient) getIntent().getSerializableExtra("ingredient");
 
-            // 받은 데이터를 뷰에 설정
-            tvItemName.setText(itemName); // 재료 이름 설정
-            ivItemImage.setImageResource(itemImage); // 재료 이미지 설정
+        if (ingredient != null) {
+            tvItemName.setText(ingredient.getName());
+            ivItemImage.setImageResource(ingredient.getImageResId());
+        } else {
+            String itemName = getIntent().getStringExtra("itemName");
+            int itemImage = getIntent().getIntExtra("itemImage", R.drawable.ic_trashcan);
+            tvItemName.setText(itemName);
+            ivItemImage.setImageResource(itemImage);
+            ingredient = new Ingredient(itemName, 0, "", "", Calendar.getInstance(), "냉장", itemImage);
         }
 
         // 뒤로가기 버튼

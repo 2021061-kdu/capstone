@@ -40,7 +40,6 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
 
         switchNotification = findViewById(R.id.switch_notification);
-        switchCamera = findViewById(R.id.switch_camera);
 
         // SharedPreferences 초기화
         SharedPreferences sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE);
