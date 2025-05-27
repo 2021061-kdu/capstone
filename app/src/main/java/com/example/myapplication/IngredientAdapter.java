@@ -61,7 +61,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
 
         // 이미지 설정
         int imageResId = ingredient.getImageResId();
-        holder.imageView.setImageResource(imageResId);
+       // holder.imageView.setImageResource(imageResId);
 
         // D-Day 계산 및 표시
         String dDayText = ingredient.calculateDDay();
