@@ -60,9 +60,12 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
         holder.expirationDateTextView.setText("유통기한: " + ingredient.getFormattedExpirationDate());
 
         // 이미지 설정
+
         //int imageResId = ingredient.getImageResId();
-       // holder.imageView.setImageResource(imageResId);
+        //holder.imageView.setImageResource(imageResId);
         int imageResId = IngredientData.getImageResource(ingredient.getName());
+        holder.imageView.setImageResource(imageResId);
+
 
         // D-Day 계산 및 표시
         String dDayText = ingredient.calculateDDay();
