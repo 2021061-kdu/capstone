@@ -29,11 +29,15 @@
             android:textSize="16sp"
             android:layout_marginEnd="12dp" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_decrease"
-            android:text="-"
             android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:layout_height="40dp"
+            android:src="@drawable/minus_circle"
+            android:background="@null"
+            android:contentDescription="수량 감소"
+            android:scaleType="fitCenter" />
+
 
         <TextView
             android:id="@+id/tv_quantity"
@@ -44,11 +48,15 @@
             android:gravity="center"
             android:layout_marginHorizontal="12dp" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_increase"
-            android:text="+"
             android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:layout_height="40dp"
+            android:src="@drawable/round_green_button"
+            android:background="@null"
+            android:contentDescription="수량 증가"
+            android:scaleType="fitCenter" />
+
     </LinearLayout>
 
     <!-- 단위: Spinner 선택 -->
